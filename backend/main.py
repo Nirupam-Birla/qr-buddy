@@ -1,3 +1,4 @@
+import uvicorn
 from fastapi import FastAPI, Form, UploadFile, File
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -13,7 +14,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["http://localhost:5173", "https://qr-buddy.onrender.com"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -71,3 +72,6 @@ async def generate_qr(
     img.save(buf, format="PNG")
     buf.seek(0)
     return StreamingResponse(buf, media_type="image/png")
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=8000)
