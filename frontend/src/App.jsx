@@ -21,10 +21,13 @@ function App() {
     });
 
     try {
-      const response = await fetch("http://localhost:8000/generate_qr", {
-        method: "POST",
-        body: payload,
-      });
+      const response = await fetch(
+        "https://qr-buddy-backend.onrender.com/generate_qr",
+        {
+          method: "POST",
+          body: payload,
+        }
+      );
 
       if (!response.ok) throw new Error("Failed to generate QR code");
 
